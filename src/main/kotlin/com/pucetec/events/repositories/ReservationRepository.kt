@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ReservationsRepository : JpaRepository<Reservation, Long> {
-    // Cuenta cuantas reservas activas tiene un asistente por su ID
-    fun countByAttendeeAndStatus(attendeeID: Long, status: String): Int
+    fun countByAttendeeIdAndStatus(attendeeId: String, status: String): Int
 }
 
-// Alias para usar de manera singular el nombre del repositorio en servicios y tests.
 typealias ReservationRepository = ReservationsRepository

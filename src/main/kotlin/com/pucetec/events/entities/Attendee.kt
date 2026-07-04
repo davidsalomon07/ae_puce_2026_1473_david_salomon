@@ -1,4 +1,15 @@
 package com.pucetec.events.entities
 
-class Attendee {
-}
+import jakarta.persistence.*
+
+@Entity
+@Table(name = "attendees")
+class Attendee(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0L,
+
+    val name: String = "",
+
+    val email: String = ""
+)

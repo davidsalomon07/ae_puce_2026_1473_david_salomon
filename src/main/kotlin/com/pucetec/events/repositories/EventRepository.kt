@@ -1,4 +1,8 @@
 package com.pucetec.events.repositories
 
-class EventRepository {
-}
+import com.pucetec.events.entities.Event
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface EventRepository : JpaRepository<Event, Long>
