@@ -77,6 +77,12 @@ class EventServiceTest {
         `when`(eventRepository.findById(1L)).thenReturn(Optional.empty())
         assertThrows<EventNotFoundException> { eventService.getEventById(1L) }
     }
+
+    @Test
+    fun `createEvent throws BlankFieldException when venue is blank`() {
+        val request = EventRequest("Concierto Rock", "", 100)
+        assertThrows<BlankFieldException> { eventService.createEvent(request) }
+    }
 }
 
 

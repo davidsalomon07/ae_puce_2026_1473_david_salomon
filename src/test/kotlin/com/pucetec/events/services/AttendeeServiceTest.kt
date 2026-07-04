@@ -42,6 +42,12 @@ class AttendeeServiceTest {
         val request = AttendeeRequest("", "ldsalomon@puce.edu.ec")
         assertThrows<BlankFieldException> { attendeeService.createAttendee(request) }
     }
+
+    @Test
+    fun `createAttendee throws BlankFieldException when email is blank`() {
+        val request = AttendeeRequest("David Salomon", "")
+        assertThrows<BlankFieldException> { attendeeService.createAttendee(request) }
+    }
 }
 
 // HOLA //
