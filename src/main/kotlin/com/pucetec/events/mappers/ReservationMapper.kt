@@ -1,4 +1,12 @@
 package com.pucetec.events.mappers
 
-class ReservationMapper {
-}
+import com.pucetec.events.dto.ReservationResponse
+import com.pucetec.events.entities.Reservation
+
+fun Reservation.toResponse() = ReservationResponse(
+    id = this.id,
+    attendee = this.attendee.toResponse(),
+    event = this.event.toResponse(),
+    status = this.status,
+    createdAt = this.createdAt
+)
