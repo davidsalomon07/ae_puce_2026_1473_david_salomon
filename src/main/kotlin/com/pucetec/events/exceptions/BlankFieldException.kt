@@ -1,4 +1,3 @@
 package com.pucetec.events.exceptions
 
-class BlankFieldException {
-}
+class BlankFieldException(message: String) : RuntimeException(message)
