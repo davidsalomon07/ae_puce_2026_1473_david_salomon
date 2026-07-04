@@ -78,3 +78,6 @@ class EventServiceTest {
         assertThrows<EventNotFoundException> { eventService.getEventById(1L) }
     }
 }
+
+
+//HOLA//

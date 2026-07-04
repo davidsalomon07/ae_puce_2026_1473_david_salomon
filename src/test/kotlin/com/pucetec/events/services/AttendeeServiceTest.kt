@@ -43,3 +43,5 @@ class AttendeeServiceTest {
         assertThrows<BlankFieldException> { attendeeService.createAttendee(request) }
     }
 }
+
+// HOLA //

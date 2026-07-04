@@ -99,9 +99,10 @@ class ReservationServiceTest {
         val attendee = Attendee(1L, "Luis Salomon", "luissalomon@puce.edu.ec")
         val event = Event(2L, "Concierto", "Estadio", 10, 5)
         val reservation = Reservation(10L, attendee, event, "ACTIVE", LocalDateTime.now())
+        val cancelledReservation = Reservation(10L, attendee, event, "CANCELLED", reservation.createdAt)
 
         `when`(reservationRepository.findById(10L)).thenReturn(Optional.of(reservation))
-        `when`(reservationRepository.save(any(Reservation::class.java))).thenReturn(reservation)
+        `when`(reservationRepository.save(any(Reservation::class.java))).thenReturn(cancelledReservation)
 
         val response = reservationService.cancelReservation(10L)
 

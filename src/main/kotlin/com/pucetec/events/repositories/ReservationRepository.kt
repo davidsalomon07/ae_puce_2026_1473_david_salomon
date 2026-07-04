@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ReservationsRepository : JpaRepository<Reservation, Long> {
-    fun countByAttendeeIdAndStatus(attendeeId: String, status: String): Int
+interface ReservationRepository : JpaRepository<Reservation, Long> {
+    fun countByAttendeeIdAndStatus(attendeeId: Long, status: String): Int
 }
-
-typealias ReservationRepository = ReservationsRepository
