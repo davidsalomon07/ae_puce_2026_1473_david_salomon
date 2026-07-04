@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "8f8e21a2-c741-4cf4-912f-4886ea5f903a",
+		"name": "Events Microservice API",
+		"description": "Colección de endpoints para el microservicio de reservas de eventos con seguridad AWS Cognito.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Obtener Token Cognito (Intercambio)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "3gv2oqe4niko3s47srn1kitsk6",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "14qdd388f1j6fge52el3l5r2ouvcg5sperlno3701t2jj1chgeiu",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "<PEGA_TU_CODE_AQUI>",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://d84l1y8p4kdic.cloudfront.net",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://us-east-1yzwnali2a.auth.us-east-1.amazoncognito.com/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"us-east-1yzwnali2a",
+						"auth",
+						"us-east-1",
+						"amazoncognito",
+						"com"
+					],
+					"path": [
+						"oauth2",
+						"token"
+					]
+				},
+				"description": "Intercambia el código temporal obtenido en la Hosted UI por los tokens JWT de Cognito."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Listar Eventos (Público)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events"
+					]
+				},
+				"description": "Devuelve la cartelera completa de eventos sin requerir autenticación."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Detalle de Evento (Público)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/events/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"1"
+					]
+				},
+				"description": "Muestra los detalles de un evento específico por ID de forma pública."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Crear Asistente (Privado)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"David Salomon\",\n    \"email\": \"ldsalomon@puce.edu.ec\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/attendees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"attendees"
+					]
+				},
+				"description": "Registra un nuevo asistente en el sistema. Requiere token en la cabecera."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Crear Evento (Privado)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Concierto de Rock\",\n    \"venue\": \"Estadio Olimpico Atahualpa\",\n    \"totalTickets\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events"
+					]
+				},
+				"description": "Crea un nuevo evento. Requiere token."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Reservar Entrada (Privado)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"attendeeId\": 1,\n    \"eventId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reservations"
+					]
+				},
+				"description": "Realiza una reserva de entrada para un asistente a un evento. Disminuye disponible y requiere token."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Cancelar Reserva (Privado)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/reservations/1/cancel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reservations",
+						"1",
+						"cancel"
+					]
+				},
+				"description": "Cancela una reserva y restaura el disponible del evento. Requiere token."
+			},
+			"response": []
+		},
+		{
+			"name": "8. Listar Reservas (Privado)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reservations"
+					]
+				},
+				"description": "Retorna todas las reservas del sistema. Requiere token."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": "reemplaza-con-tu-token-jwt-aqui",
+			"type": "string"
+		}
+	]
+}
